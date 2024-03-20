@@ -17,8 +17,10 @@ func TestUnmarshal(t *testing.T) {
 	}
 	bs := make([]byte, 2)
 	binary.BigEndian.PutUint16(bs, uint16(b.Port))
-	b.IP = append(b.IP, bs...)
-	r.UnmarshalBinary(b.IP)
+	var key []byte
+	key = append(key, b.IP...)
+	key = append(key, bs...)
+	r.UnmarshalBinary(key)
 	assert.Equal(t, r.IP, b.IP)
 	assert.Equal(t, r.Port, b.Port)
 }
